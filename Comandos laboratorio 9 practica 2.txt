@@ -1,0 +1,57 @@
+Comandos laboratorio 9 practica 2
+
+sudo dnf install -y dnf-utils
+sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+sudo dnf install terraform -y
+
+terraform -v
+
+ssh-keygen
+cat ~/.ssh/id_rsa.pub
+
+
+mkdir ~/practica-terraform && cd ~/practica-terraform
+
+touch main.tf
+nano main.tf
+
+
+terraform {
+  required_providers {
+    digitalocean = {
+      source  = "digitalocean/digitalocean"
+      version = "~> 2.0"
+    }
+  }
+}
+
+provider "digitalocean" {
+  # Reemplaza con tu token real
+  token = "Token_digitalOcean"
+}
+
+resource "digitalocean_droplet" "OS3vm" {
+  image  = "ubuntu-22-04-x64"
+  name   = "OS3vm"
+  region = "nyc1"
+  size   = "s-1vcpu-1gb"
+
+  # Aquí debes poner el Fingerprint de tu llave SSH cargada en DO
+  # Puedes encontrarlo en Settings -> Security -> SSH Keys en el panel de DO
+  ssh_keys = ["LLave_ssh"]
+}
+
+output "vm_ip" {
+  value = digitalocean_droplet.OS3vm.ipv4_address
+}
+
+
+terraform init
+terraform plan
+terraform apply -auto-approve
+terraform show
+
+ssh root@157.245.241.139
+
+
+

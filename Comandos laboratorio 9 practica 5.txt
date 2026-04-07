@@ -1,0 +1,52 @@
+Comandos laboratorio 9 practica 5
+PLAYBOOK NGINX (LINUX)
+nano nginx.yml
+
+- name: Instalar NGINX en Ubuntu
+  hosts: linux
+  become: yes
+
+  tasks:
+    - name: Actualizar repositorios
+      apt:
+        update_cache: yes
+
+    - name: Instalar nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Iniciar nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+ansible-playbook nginx.yml
+
+systemctl status nginx
+
+http://Ip de la maquina 
+
+
+
+
+PLAYBOOK NOTEPAD++ (WINDOWS)
+nano notepad.yml 
+
+---
+- name: Instalar Notepad++ en Windows
+  hosts: win
+  tasks:
+    - name: Descargar instalador de Notepad++
+      win_get_url:
+        url: https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.6.5/npp.8.6.5.Installer.x64.exe
+        dest: C:\Temp\npp_installer.exe
+
+    - name: Ejecutar instalador de Notepad++
+      win_package:
+        path: C:\Temp\npp_installer.exe
+        arguments: /S
+        state: present
+
+ansible-playbook notepad.yml 

@@ -1,0 +1,27 @@
+Comandos laboratorio 9 practica 1
+
+# Actualizar el sistema
+sudo dnf update -y
+-
+# Instalar dependencias
+sudo dnf install wget perl tar -y
+
+# Descargar Webmin
+wget https://www.webmin.com/download/rpm/webmin-current.rpm
+
+# Instalar Webmin
+sudo dnf install webmin-current.rpm -y
+
+# Abrir el puerto en firewall
+sudo firewall-cmd --add-port=10000/tcp --permanent
+sudo firewall-cmd --reload
+
+# Iniciar Webmin
+sudo systemctl enable --now webmin
+
+# Acceder desde navegador
+https://IP de la maquina:10000
+
+nmcli con sh enp0s3 | grep method
+
+df -h 

@@ -1,0 +1,7 @@
+Comandos laboratorio 9 practica 4
+
+ansible win -m fetch -a 'src="C:/Users/Ambiente de prueba/Desktop/prueba.txt" dest=/home/Carlos_A/ flat=yes'
+
+ansible linux -m copy -a "src='/home/Carlos_A/prueba2.txt' dest='/home/ansible/'"
+
+ansible linux -m reboot -b
