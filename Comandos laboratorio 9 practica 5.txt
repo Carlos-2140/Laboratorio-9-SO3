@@ -50,3 +50,36 @@ nano notepad.yml
         state: present
 
 ansible-playbook notepad.yml 
+
+
+=======================================================
+
+---
+- name: Crear usuario en Windows
+  hosts: windows
+  gather_facts: no
+
+  tasks:
+    - name: Crear usuario adrian123
+      win_user:
+        name: adrian123
+        password: "Admin1234!"
+        state: present
+        password_never_expires: yes
+================================================================
+
+---
+- name: Agregar usuario al grupo Administradores
+  hosts: windows
+  gather_facts: no
+
+  tasks:
+    - name: Agregar adrian123 al grupo Administrators
+      win_group_membership:
+        name: Administrators
+        members:
+          - adrian123
+        state: present
+====================================================================
+
+
